@@ -6,5 +6,7 @@ def HomeView(request):
     context = {'all_projects': project}
     return render(request,'home/index.html', context)
 
-def PortfolioDetailView(request):
-    return render(request,'home/portfolio-details.html')
+def PortfolioDetailView(request, pk):
+    Project_Detail = Projects.objects.get(id=pk)
+    context = {'Project':Project_Detail}
+    return render(request,'home/portfolio-details.html', context)

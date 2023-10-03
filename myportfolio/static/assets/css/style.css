@@ -377,6 +377,12 @@ section {
   width: 100%;
 }
 
+.custom-size {
+  width: 50%; /* Set the width to 50% to reduce image size */
+  height: auto; /* Allow the height to adjust proportionally based on the width */
+}
+
+
 .facts .count-box i {
   display: block;
   font-size: 44px;

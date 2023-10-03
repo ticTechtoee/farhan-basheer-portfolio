@@ -5,5 +5,5 @@ app_name = "home"
 
 urlpatterns = [
     path('', views.HomeView, name="ViewHome"),
-    path('portfolio_detail', views.PortfolioDetailView, name="ViewPortfolioDetail")
+    path('portfolio_detail/<int:pk>', views.PortfolioDetailView, name="ViewPortfolioDetail")
     ]

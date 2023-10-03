@@ -29,7 +29,7 @@
                     <div class="portfolio-links">
                         <a href="{{ project.image_1.url }}" data-gallery="portfolioGallery"
                             class="portfolio-lightbox" title="{{ project.title }}"><i class="bx bx-plus"></i></a>
-                        <a href="{% url 'home:ViewPortfolioDetail' %}" title="More Details"><i class="bx bx-link"></i></a>
+                        <a href="{% url 'home:ViewPortfolioDetail' pk=project.id %}" title="More Details"><i class="bx bx-link"></i></a>
                     </div>
                 </div>
             </div>
