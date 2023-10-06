@@ -3,6 +3,10 @@ from .models import Projects
 
 def HomeView(request):
     project = Projects.objects.all()
+
+    # Email Sending Function
+     
+
     context = {'all_projects': project}
     return render(request,'home/index.html', context)
 
