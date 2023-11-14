@@ -1,17 +1,24 @@
+import environ
 from pathlib import Path
 import os, mimetypes
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)swbyo(x&je8z=bw8(4l9wt$(v&o$gmn(t3p)dl^q7f(j!=h3p'
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -57,6 +64,26 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',  # Set the log level as needed
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',  # Specify the log file name and path
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',  # Set the log level as needed
+            'propagate': True,
+        },
+    },
+}
+
 
 WSGI_APPLICATION = 'myportfolio.wsgi.application'
 
@@ -119,6 +146,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myportfolio/static/')
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

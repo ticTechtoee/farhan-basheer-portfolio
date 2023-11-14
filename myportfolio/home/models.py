@@ -26,6 +26,8 @@ class ContactUs(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=200)
     message_body = models.TextField()
+    class Meta:
+        verbose_name_plural = "Contat Us Page"
     def __str__(self):
         return self.email
 
