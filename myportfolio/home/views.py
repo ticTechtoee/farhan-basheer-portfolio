@@ -1,5 +1,6 @@
 from smtplib import SMTPException
 from django.core.mail import EmailMessage
+from django.core.mail import send_mail
 from django.shortcuts import render
 from .models import Projects, ContactUs
 
@@ -14,14 +15,14 @@ def HomeView(request):
         get_first_name = request.POST.get('firstname')
         get_last_name = request.POST.get('lastname')
         get_email = request.POST.get('email')
-        get_contact_number = request.POST('contact_number')
+        get_contact_number = request.POST.get('contact_number')
         get_subject = request.POST.get('subject')
         get_message = request.POST.get('message')
 
         try:
             # Email Sending Function
-            email_subject = 'Contact Form Submission from {} {}'.format(get_first_name, get_last_name)
-            email_message = EmailMessage(email_subject, get_message +" Get back to this person on this number: " + get_contact_number, 'farhanbasheerofficial10@gmail.com', ['farhanbasheerofficial10@gmail.com'], [], reply_to=[get_email,])
+            email_subject = 'Contact Form Submission from: {} {} CN: {}'.format(get_first_name, get_last_name, get_contact_number)
+            email_message = EmailMessage(email_subject, get_message, 'farhanbasheerofficial10@gmail.com', ['farhanbasheerofficial10@gmail.com'], [], reply_to=[get_email,])
             email_message.send()
             print("Email Has Been Sent Successfully")
 
