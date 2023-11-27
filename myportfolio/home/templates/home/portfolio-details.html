@@ -70,13 +70,14 @@
               <li><strong>Project URL</strong>: <a href="{{Project.project_url}}">{{Project.project_url}}</a></li>
             </ul>
           </div>
-          <div class="portfolio-description">
-            <h2>{{Project.title}}</h2>
+        </div>
+
+          <div class="portfolio-description col-lg-12">
+            <h1 class="text-center">{{ Project.title }}</h1>
             <p>
-              {{Project.description}}
+              {{Project.description|safe}}
             </p>
           </div>
-        </div>
 
       </div>
 

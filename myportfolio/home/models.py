@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Projects(models.Model):
     CATEGORY = [
@@ -6,7 +7,7 @@ class Projects(models.Model):
         ('Desktop','Desktop App Development')
     ]
     title = models.CharField(max_length = 40)
-    description = models.TextField()
+    description = RichTextField(blank=True, null=True)
     category = models.CharField(max_length = 7, choices = CATEGORY)
     image_1 = models.ImageField(default='images/default.jpg', upload_to = 'images/') 
     image_2 = models.ImageField(default='images/default.jpg', upload_to = 'images/') 
