@@ -43,3 +43,15 @@ def PortfolioDetailView(request, pk):
     Project_Detail = Projects.objects.get(id=pk)
     context = {'Project':Project_Detail}
     return render(request,'home/portfolio-details.html', context)
+
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def callback_view(request):
+    if request.method == 'POST':
+        # Handle POST request logic here
+        return HttpResponse("Callback received via POST")
+    else:
+        # Handle GET request logic here
+        return HttpResponse("Callback received via GET")
