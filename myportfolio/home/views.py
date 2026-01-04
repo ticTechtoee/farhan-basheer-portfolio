@@ -49,9 +49,30 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def callback_view(request):
-    if request.method == 'POST':
-        # Handle POST request logic here
-        return HttpResponse("Callback received via POST")
-    else:
-        # Handle GET request logic here
-        return HttpResponse("Callback received via GET")
+    # TikTok sends the auth code via GET parameters after user login
+    if request.method == 'GET':
+        auth_code = request.GET.get('code')
+        error = request.GET.get('error')
+
+        if auth_code:
+            # This is what you need for your tiktok_token.py script
+            return HttpResponse(f"""
+                <div style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+                    <h2 style="color: #25F4EE;">Farhan Automation: Auth Success!</h2>
+                    <p>Copy the code below and paste it into your <b>AUTH_CODE</b> variable:</p>
+                    <code style="background: #f4f4f4; padding: 10px; border: 1px solid #ddd; display: inline-block; font-size: 1.2em;">
+                        {auth_code}
+                    </code>
+                </div>
+            """)
+        
+        if error:
+            return HttpResponse(f"Authorization Error: {error}", status=400)
+
+        return HttpResponse("No code provided. Make sure you are coming from the TikTok login page.")
+
+    # If you ever use Webhooks in the future, they will come via POST
+    elif request.method == 'POST':
+        return HttpResponse("POST received (Future Webhook support)")
+
+    return HttpResponse("Method not allowed", status=405)
